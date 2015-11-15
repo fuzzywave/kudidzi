@@ -39,8 +39,8 @@ public class FadeInTransition extends EnterTransition {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Game.shapeRenderer.setColor(currentColor);
-        Game.shapeRenderer.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Game.shapeRenderer.rect(-Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight() / 2, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        Game.shapeRenderer.rect(-screen.getViewportWidth() / 2, -screen.getViewportHeight() / 2,
+                screen.getViewportWidth(), screen.getViewportHeight());
         Game.shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }

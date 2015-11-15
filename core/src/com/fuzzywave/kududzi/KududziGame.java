@@ -5,11 +5,13 @@ import com.fuzzywave.commons.resources.ResourceManager;
 import com.fuzzywave.commons.screen.Screen;
 import com.fuzzywave.commons.screen.ScreenImpl;
 import com.fuzzywave.commons.screen.transition.ScreenTransitionBuilder;
+import com.fuzzywave.kududzi.gamestates.PlayGameState;
 import com.fuzzywave.kududzi.gamestates.SplashGameState;
 
 public class KududziGame extends com.fuzzywave.commons.Game {
 
     public Screen splashScreen;
+    public Screen playGameScreen;
 
     @Override
     public void create() {
@@ -18,9 +20,11 @@ public class KududziGame extends com.fuzzywave.commons.Game {
 
         // TODO create game states.
         GameState splashGameState = new SplashGameState(this);
+        GameState playGameState = new PlayGameState(this);
 
         // TODO create game screens.
         splashScreen = new ScreenImpl(splashGameState);
+        playGameScreen = new ScreenImpl(playGameState);
 
         // TODO load assets.
 

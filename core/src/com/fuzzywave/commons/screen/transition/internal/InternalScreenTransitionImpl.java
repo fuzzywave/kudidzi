@@ -6,7 +6,7 @@ import com.fuzzywave.commons.screen.transition.TransitionHandler;
 
 public class InternalScreenTransitionImpl implements InternalScreenTransition {
 
-    private final Screen screen;
+    protected final Screen screen;
     private final TransitionHandler transitionHandler;
 
     private boolean finished;

@@ -1,6 +1,7 @@
 package com.fuzzywave.commons.screen;
 
 
+import com.fuzzywave.commons.Game;
 import com.fuzzywave.commons.gamestate.GameState;
 import com.fuzzywave.commons.util.Parameters;
 
@@ -30,6 +31,7 @@ public class ScreenImpl implements Screen {
 
     @Override
     public void init() {
+        Game.logger.debug("[" + getName() + "] init: ");
         if (inited) {
             return;
         }
@@ -124,11 +126,26 @@ public class ScreenImpl implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        Game.logger.debug("[" + getName() + "] Resize: " + width + ", " + height);
         gameState.resize(width, height);
+    }
+
+    public String getName() {
+        return ((Object) gameState).getClass().getSimpleName();
     }
 
     @Override
     public Parameters getParameters() {
         return gameState.getParameters();
+    }
+
+    @Override
+    public int getViewportWidth(){
+        return gameState.getViewportWidth();
+    }
+
+    @Override
+    public int getViewportHeight(){
+        return gameState.getViewportHeight();
     }
 }

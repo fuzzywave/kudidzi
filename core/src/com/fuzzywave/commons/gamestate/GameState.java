@@ -68,4 +68,8 @@ public interface GameState {
      * @param height The new height.
      */
     void resize(int width, int height);
+
+    int getViewportWidth();
+
+    int getViewportHeight();
 }

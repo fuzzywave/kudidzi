@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fuzzywave.commons.gamestate.GameStateImpl;
 import com.fuzzywave.commons.util.Parameters;
@@ -21,10 +22,8 @@ import com.fuzzywave.kududzi.KududziGame;
 
 public class SplashGameState extends GameStateImpl {
 
-    private static final int SCENE_WIDTH = 1280;
-    private static final int SCENE_HEIGHT = 720;
 
-    private static final float DT = 0.01f;
+
     private static final float SPLASH_MIN_TIME = 2.0f;
     private static final Color COLOR1 = Color.valueOf("fe8c00");
     private static final Color COLOR2 = Color.valueOf("f83600");
@@ -38,8 +37,7 @@ public class SplashGameState extends GameStateImpl {
     private final KududziGame kududziGame;
 
     private float totalTime;
-    private Camera camera;
-    private Viewport viewport;
+
     private BitmapFont logoFont;
     private BitmapFont graphFont;
     private BitmapFont loadingFont;
@@ -64,6 +62,7 @@ public class SplashGameState extends GameStateImpl {
 
     @Override
     public void init() {
+
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(SCENE_WIDTH, SCENE_HEIGHT, this.camera);
         this.glyphLayout = new GlyphLayout();
@@ -116,7 +115,7 @@ public class SplashGameState extends GameStateImpl {
 
         if ((interpolationAlpha >= 1.0f) && (loadingFinished)) {
             // TODO switch screen.
-            kududziGame.transition(kududziGame.splashScreen).restartScreen().leaveTime(1f).start();
+            kududziGame.transition(kududziGame.playGameScreen).restartScreen().leaveTime(0.5f).enterTime(1f).start();
         }
     }
 
@@ -193,13 +192,9 @@ public class SplashGameState extends GameStateImpl {
     }
 
     @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        this.viewport.update(width, height);
-    }
-
-    @Override
     public Parameters getParameters() {
         return null;
     }
+
+
 }

@@ -15,8 +15,8 @@ public class LeaveTransition extends InternalScreenTransitionImpl {
 
     public void init() {
         super.init();
-        getScreen().init();
-        getScreen().show();
+        //getScreen().init();
+        //getScreen().show();
         getTransitionHandler().onBegin();
     }
 

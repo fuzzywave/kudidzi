@@ -60,4 +60,6 @@ public interface Screen {
     Parameters getParameters();
 
 
+    int getViewportWidth();
+    int getViewportHeight();
 }
