@@ -2,7 +2,7 @@ package com.fuzzywave.commons.platform;
 
 
 public interface LoggerApi {
-    void init(String tag, int level);
+    void init();
 
     void info(String msg);
 

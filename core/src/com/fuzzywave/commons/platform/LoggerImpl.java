@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 
 public class LoggerImpl implements LoggerApi {
 
-    private String tag;
+    private final int level;
+    private final String tag;
+
+    public LoggerImpl(String tag, int level) {
+        this.tag = tag;
+        this.level = level;
+    }
 
     @Override
-    public void init(String tag, int level) {
-        this.tag = tag;
+    public void init() {
         Gdx.app.setLogLevel(level);
     }
 

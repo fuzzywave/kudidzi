@@ -8,7 +8,6 @@ public class KududziGame extends com.fuzzywave.commons.Game {
     public void create() {
 
         super.create();
-        initResourceManager();
 
         // TODO create game states.
         // TODO create game screens.

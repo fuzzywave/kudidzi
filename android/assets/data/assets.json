@@ -1,0 +1,20 @@
+{
+"splash_screen" : [
+	{	
+		"type" : "com.badlogic.gdx.graphics.g2d.BitmapFont",
+		"path" : "data/splash_screen/FUZZYWAVE.fnt"
+	},
+	{	
+		"type" : "com.badlogic.gdx.graphics.g2d.BitmapFont",
+		"path" : "data/splash_screen/GRAPH.fnt"
+	},
+	{	
+		"type" : "com.badlogic.gdx.graphics.g2d.BitmapFont",
+		"path" : "data/splash_screen/LOADING.fnt"	
+	},
+	{	
+		"type" : "com.badlogic.gdx.graphics.glutils.ShaderProgram",
+		"path" : "data/splash_screen/distancefield"	
+	}
+]
+}

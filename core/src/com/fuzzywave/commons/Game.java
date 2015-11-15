@@ -31,46 +31,71 @@ public abstract class Game implements ApplicationListener {
 
     @Override
     public void dispose() {
-        if (screen == null) {
-            return;
-        }
-        screen.hide();
-        screen.pause();
-        screen.dispose();
+        try {
+            if (screen == null) {
+                return;
+            }
+            screen.hide();
+            screen.pause();
+            screen.dispose();
 
-        Game.shapeRenderer.dispose();
-        Game.spriteBatch.dispose();
-        Game.resourceManager.dispose();
+            Game.shapeRenderer.dispose();
+            Game.spriteBatch.dispose();
+            Game.resourceManager.dispose();
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
+        }
     }
 
     @Override
     public void pause() {
-        if (screen != null) {
-            screen.pause();
+        try {
+            if (screen != null) {
+                screen.pause();
+            }
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
         }
     }
 
     @Override
     public void resume() {
-        if (screen != null) {
-            screen.resume();
+        try {
+            if (screen != null) {
+                screen.resume();
+            }
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
         }
     }
 
     @Override
     public void render() {
-        if (screen == null) {
-            return;
+        try {
+            if (screen == null) {
+                return;
+            }
+            screen.setDelta(Gdx.graphics.getRawDeltaTime());
+            screen.update();
+            screen.render();
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
         }
-        screen.setDelta(Gdx.graphics.getRawDeltaTime());
-        screen.update();
-        screen.render();
     }
 
     @Override
     public void resize(int width, int height) {
-        if (screen != null) {
-            screen.resize(width, height);
+        try {
+            if (screen != null) {
+                screen.resize(width, height);
+            }
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
         }
     }
 
@@ -97,10 +122,16 @@ public abstract class Game implements ApplicationListener {
 
     @Override
     public void create() {
-        Game.spriteBatch = new SpriteBatch();
-        Game.shapeRenderer = new ShapeRenderer();
+        try {
+            Game.logger.init();
+            Game.spriteBatch = new SpriteBatch();
+            Game.shapeRenderer = new ShapeRenderer();
 
-        // TODO Resource Manager
+            initResourceManager();
+        } catch (Exception e) {
+            Game.logger.error(e.getMessage(), e);
+            Gdx.app.exit();
+        }
     }
 
     protected abstract void initResourceManager();

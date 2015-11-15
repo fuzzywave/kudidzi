@@ -44,7 +44,7 @@ public class ResourceManager implements Disposable, AssetErrorListener{
 
         if (assets != null) {
             for (Asset asset : assets) {
-                Game.logger.info("[ResourceManager] loading... " + asset.path);
+                Game.logger.info("[ResourceManager] loading, " + asset.path);
                 manager.load(asset.path, asset.type, asset.parameters);
             }
         } else {
@@ -106,7 +106,7 @@ public class ResourceManager implements Disposable, AssetErrorListener{
     private void loadGroups(String assetFile) {
         groups = new ObjectMap<String, Array<Asset>>();
 
-        Game.logger.info("[ResourceManager] loading file " + assetFile);
+        Game.logger.info("[ResourceManager] loading file, " + assetFile);
 
         try {
             Json json = new Json();
