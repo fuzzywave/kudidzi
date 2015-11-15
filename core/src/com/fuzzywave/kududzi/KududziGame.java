@@ -4,6 +4,7 @@ import com.fuzzywave.commons.gamestate.GameState;
 import com.fuzzywave.commons.resources.ResourceManager;
 import com.fuzzywave.commons.screen.Screen;
 import com.fuzzywave.commons.screen.ScreenImpl;
+import com.fuzzywave.commons.screen.transition.ScreenTransitionBuilder;
 import com.fuzzywave.kududzi.gamestates.SplashGameState;
 
 public class KududziGame extends com.fuzzywave.commons.Game {
@@ -16,7 +17,7 @@ public class KududziGame extends com.fuzzywave.commons.Game {
         super.create();
 
         // TODO create game states.
-        GameState splashGameState = new SplashGameState();
+        GameState splashGameState = new SplashGameState(this);
 
         // TODO create game screens.
         splashScreen = new ScreenImpl(splashGameState);
@@ -32,5 +33,7 @@ public class KududziGame extends com.fuzzywave.commons.Game {
         KududziGame.resourceManager = new ResourceManager("data/assets.json");
     }
 
-    // TODO TransitionBuilder
+    public ScreenTransitionBuilder transition(Screen screen) {
+        return new ScreenTransitionBuilder(this, screen);
+    }
 }

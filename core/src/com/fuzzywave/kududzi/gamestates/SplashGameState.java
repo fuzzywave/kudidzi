@@ -35,6 +35,8 @@ public class SplashGameState extends GameStateImpl {
     private final float logoSmoothing = 1 / 8f;
     private final float logoScale = 5f;
 
+    private final KududziGame kududziGame;
+
     private float totalTime;
     private Camera camera;
     private Viewport viewport;
@@ -55,6 +57,10 @@ public class SplashGameState extends GameStateImpl {
 
     private float interpolationAlpha;
     private GlyphLayout glyphLayout;
+
+    public SplashGameState(KududziGame kududziGame){
+        this.kududziGame = kududziGame;
+    }
 
     @Override
     public void init() {
@@ -110,6 +116,7 @@ public class SplashGameState extends GameStateImpl {
 
         if ((interpolationAlpha >= 1.0f) && (loadingFinished)) {
             // TODO switch screen.
+            kududziGame.transition(kududziGame.splashScreen).restartScreen().leaveTime(1f).start();
         }
     }
 
