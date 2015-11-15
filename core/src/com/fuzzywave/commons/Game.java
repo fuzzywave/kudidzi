@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fuzzywave.commons.platform.LoggerApi;
 import com.fuzzywave.commons.resources.ResourceManager;
+import com.fuzzywave.commons.screen.Screen;
 
 public abstract class Game implements ApplicationListener {
 

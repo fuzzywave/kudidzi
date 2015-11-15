@@ -1,4 +1,4 @@
-package com.fuzzywave.commons;
+package com.fuzzywave.commons.gamestate;
 
 import com.fuzzywave.commons.util.Parameters;
 
