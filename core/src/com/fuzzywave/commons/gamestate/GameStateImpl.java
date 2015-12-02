@@ -17,7 +17,7 @@ public class GameStateImpl implements GameState {
     protected Viewport viewport;
 
     protected float delta;
-    private float alpha;
+    protected float alpha;
 
     private Parameters parameters = new StringParametersMapImpl();
 
@@ -27,37 +27,30 @@ public class GameStateImpl implements GameState {
 
     @Override
     public void dispose() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void update() {
-
     }
 
     @Override
     public void render() {
-
     }
 
     @Override

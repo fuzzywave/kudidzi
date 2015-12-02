@@ -120,7 +120,7 @@ public class ScreenImpl implements Screen {
         if (!visible) {
             return;
         }
-        gameState.setDelta(this.delta);
+        gameState.setDelta(delta);
         gameState.render();
     }
 
