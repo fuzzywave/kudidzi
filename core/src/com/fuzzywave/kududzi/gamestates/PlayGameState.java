@@ -1,6 +1,8 @@
 package com.fuzzywave.kududzi.gamestates;
 
 
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.fuzzywave.kududzi.KududziGame;
+import com.fuzzywave.kududzi.entity.systems.PhysicsTransformSystem;
+import com.fuzzywave.kududzi.entity.systems.RenderingSystem;
 
 public class PlayGameState extends GameStateImpl {
 
@@ -15,6 +19,7 @@ public class PlayGameState extends GameStateImpl {
     private static final Color COLOR2 = Color.valueOf("f836FF");
     private final KududziGame kududziGame;
 
+    private Engine engine;
 
     public PlayGameState(KududziGame kududziGame) {
         this.kududziGame = kududziGame;
@@ -22,26 +27,36 @@ public class PlayGameState extends GameStateImpl {
 
     @Override
     public void init() {
+        super.init();
         this.camera = new OrthographicCamera();
         this.viewport = new FitViewport(SCENE_WIDTH, SCENE_HEIGHT, this.camera);
+
+        // TODO init ashley engine.
+        engine = new PooledEngine();
+        // TODO init entity factory.
+        // TODO init assets.
+    }
+
+    @Override
+    public void dispose(){
+        super.dispose();
+    }
+
+    @Override
+    public void update(){
+        engine.update(delta);
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        PhysicsTransformSystem physicsTransformSystem = engine.getSystem(PhysicsTransformSystem.class);
+        if(physicsTransformSystem != null){
+            physicsTransformSystem.interpolate(alpha);
+        }
 
-        KududziGame.shapeRenderer.setProjectionMatrix(this.camera.combined);
-
-        KududziGame.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        KududziGame.shapeRenderer.rect(-this.viewport.getWorldWidth() / 2,
-                -this.viewport.getWorldHeight() / 2,
-                this.viewport.getWorldWidth(),
-                this.viewport.getWorldHeight(),
-                PlayGameState.COLOR1,
-                PlayGameState.COLOR2,
-                PlayGameState.COLOR1,
-                PlayGameState.COLOR2);
-        KududziGame.shapeRenderer.end();
+        RenderingSystem renderingSystem = engine.getSystem(RenderingSystem.class);
+        if(renderingSystem != null){
+            renderingSystem.update(delta);
+        }
     }
 }
