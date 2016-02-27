@@ -1,7 +1,5 @@
 package com.fuzzywave.commons;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fuzzywave.commons.platform.LoggerApi;
@@ -22,13 +20,6 @@ public abstract class Game implements ApplicationListener {
         Game.logger = logger;
     }
 
-    public Screen getScreen() {
-        return screen;
-    }
-
-    public void setScreen(Screen screen) {
-        setScreen(screen, false);
-    }
 
     @Override
     public void dispose() {

@@ -1,14 +1,11 @@
 package com.fuzzywave.kududzi;
 
-import com.fuzzywave.commons.gamestate.GameState;
 import com.fuzzywave.commons.resources.ResourceManager;
 import com.fuzzywave.commons.screen.Screen;
-import com.fuzzywave.commons.screen.ScreenImpl;
-import com.fuzzywave.commons.screen.transition.ScreenTransitionBuilder;
 import com.fuzzywave.kududzi.gamestates.PlayGameState;
 import com.fuzzywave.kududzi.gamestates.SplashGameState;
 
-public class KududziGame extends com.fuzzywave.commons.Game {
+public class KududziGame extends com.fuzzywave.commons.ScreenBasedGameContainer {
 
     public Screen splashScreen;
     public Screen playGameScreen;
@@ -37,7 +34,16 @@ public class KududziGame extends com.fuzzywave.commons.Game {
         KududziGame.resourceManager = new ResourceManager("data/assets.json");
     }
 
-    public ScreenTransitionBuilder transition(Screen screen) {
-        return new ScreenTransitionBuilder(this, screen);
+
+
+    @Override
+    public void initialise() {
+        // Add screen implementations to the game container.
     }
+
+    @Override
+    public int getInitialScreenId() {
+        return 0;
+    }
+
 }

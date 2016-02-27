@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.fuzzywave.commons.gamestate.GameStateImpl;
 import com.fuzzywave.kududzi.KududziGame;
 
 public class PlayGameState extends GameStateImpl {

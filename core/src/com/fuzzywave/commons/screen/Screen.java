@@ -1,65 +1,97 @@
 package com.fuzzywave.commons.screen;
 
 
-import com.fuzzywave.commons.util.Parameters;
+import com.fuzzywave.commons.GameContainer;
+import com.fuzzywave.commons.graphics.Graphics;
+import com.fuzzywave.commons.screen.transition.Transition;
 
 public interface Screen {
 
     /**
-     * Called to initialize the Screen.
+     * Initialises the screen.
      */
-    void init();
+    void init(GameContainer gc);
 
     /**
-     * Called to dispose the Screen.
+     * Updates the screen.
      */
-    void dispose();
+    void update(GameContainer gc, ScreenManager<? extends Screen> screenManager, float delta);
 
     /**
-     * Called to restart the Screen.
+     * Interpolates the screen.
      */
-    void restart();
+    void interpolate(GameContainer gc, float alpha);
 
     /**
-     * Called to show the Screen, enables render calls process.
+     * Renders the screen.
      */
-    void show();
+    void render(GameContainer gc, Graphics g);
 
     /**
-     * Called to hide the Screen, disables render calls process.
+     * Called when the window's dimensions changes.
      */
-    void hide();
+    void onResize(int width, int height);
 
     /**
-     * Called to pause the Screen, disables update calls process.
+     * Called when the game is paused.
      */
-    void pause();
+    void onPause();
 
     /**
-     * Called to resume the Screen, enables update calls process.
+     * Called when the game is resumed.
      */
-    void resume();
+    void onResume();
 
     /**
-     * Process screen update.
+     * Called when the game window is no longer active or visible.
      */
-    void update();
+    void onHide();
 
     /**
-     * Process screen render.
+     * Called when the game window becomes active or visible again.
      */
-    void render();
-
-    void resize(int width, int height);
-
-    void setDelta(float delta);
+    void onShow();
 
     /**
-     * Return parameters used to pass information to the screen, to be used when entering it.
+     * Disposes the Screen.
      */
-    Parameters getParameters();
+    void onDispose();
 
+    /**
+     * Restarts the Screen.
+     */
+    void onRestart();
 
-    int getViewportWidth();
-    int getViewportHeight();
+    /**
+     * Returns the identifier of the screen.
+     */
+    int getId();
+
+    /**
+     * Called before the transition in
+     *
+     * @param transitionIn The {@link Transition} in to this screen
+     */
+    void preTransitionIn(Transition transitionIn);
+
+    /**
+     * Called after the transition in
+     *
+     * @param transitionIn The {@link Transition} in to this screen
+     */
+    void postTransitionIn(Transition transitionIn);
+
+    /**
+     * Called before the transition out
+     *
+     * @param transitionOut The {@link Transition} out from this screen
+     */
+    void preTransitionOut(Transition transitionOut);
+
+    /**
+     * Called after the transition out
+     *
+     * @param transitionOut The {@link Transition} out from this screen
+     */
+    void postTransitionOut(Transition transitionOut);
 }

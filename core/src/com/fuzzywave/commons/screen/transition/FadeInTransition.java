@@ -1,58 +1,74 @@
 package com.fuzzywave.commons.screen.transition;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.fuzzywave.commons.Game;
+import com.fuzzywave.commons.GameContainer;
+import com.fuzzywave.commons.graphics.Graphics;
 import com.fuzzywave.commons.screen.Screen;
-import com.fuzzywave.commons.screen.transition.internal.EnterTransition;
 
-public class FadeInTransition extends EnterTransition {
+/**
+ * Implements a fade in transition.
+ */
+public class FadeInTransition implements Transition {
 
-    private final float initialTotalTime;
+    private Color color;
+    private float duration;
 
-    private final Color startColor = new Color(0f, 0f, 0f, 1f);
-    private final Color endColor = new Color(0f, 0f, 0f, 0f);
-    private Color currentColor = new Color(0f, 0f, 0f, 1f);
-
-
-    public FadeInTransition(Screen screen, float totalTime) {
-        super(screen, totalTime);
-        initialTotalTime = totalTime;
+    /**
+     * Default constructor - fade from black in 0.5 seconds
+     */
+    public FadeInTransition() {
+        this(Color.BLACK);
     }
 
-    public FadeInTransition(Screen screen, float totalTime, TransitionHandler transitionHandler) {
-        super(screen, totalTime, transitionHandler);
-        initialTotalTime = totalTime;
+    /**
+     * Constructs a fade in transition that lasts 0.5 seconds
+     *
+     * @param color The {@link Color} to fade from
+     */
+    public FadeInTransition(Color color) {
+        this(color, 0.5f);
+    }
+
+    /**
+     * Constructs a fade in transition
+     *
+     * @param color    The {@link Color} to fade from
+     * @param duration The time in seconds to last
+     */
+    public FadeInTransition(Color color, float duration) {
+        this.color = color;
+        this.color.a = 1f;
+        this.duration = duration;
     }
 
     @Override
-    public void init() {
-        super.init();
-        currentColor.set(startColor);
+    public void initialise(Screen outScreen, Screen inScreen) {
     }
 
     @Override
-    public void postRender(float delta) {
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        Game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Game.shapeRenderer.setColor(currentColor);
-        Game.shapeRenderer.rect(-screen.getViewportWidth() / 2, -screen.getViewportHeight() / 2,
-                screen.getViewportWidth(), screen.getViewportHeight());
-        Game.shapeRenderer.end();
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+    public void update(GameContainer gc, float delta) {
+        color.a -= (delta * 1.0f) / duration;
+        if (color.a < 0) {
+            color.a = 0;
+        }
     }
 
     @Override
-    public void internalUpdate(float delta) {
-        super.internalUpdate(delta);
-        currentColor.set(startColor);
-
-        float elapsedTime = Math.min(initialTotalTime - totalTime, initialTotalTime);
-        float t = elapsedTime / initialTotalTime;
-        currentColor.lerp(endColor, t);
+    public void preRender(GameContainer gc, Graphics g) {
     }
 
+    @Override
+    public void postRender(GameContainer gc, Graphics g) {
+        Color old = g.getColor();
+        g.setColor(color);
+
+        g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
+        g.setColor(old);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return color.a <= 0;
+    }
 }
