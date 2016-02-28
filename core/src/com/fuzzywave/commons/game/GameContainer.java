@@ -1,31 +1,31 @@
-package com.fuzzywave.commons;
+package com.fuzzywave.commons.game;
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.fuzzywave.commons.GameResizeListener;
 import com.fuzzywave.commons.graphics.Graphics;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GameContainer {
-    public static final float MAXIMUM_DELTA = (1f / 60f);
+
 
     protected int width, height;
     protected Graphics graphics;
     protected SpriteBatch spriteBatch;
     protected ShapeRenderer shapeRenderer;
 
-    private float accumulator = 0f;
-    private float targetDelta = 0.01f;
     private boolean isInitialised = false;
     private List<GameResizeListener> gameResizeListeners;
+
 
     /**
      * Initialse the game
      */
-    public abstract void initialise();
+    protected abstract void initialise();
 
     /**
      * Update the game
@@ -46,14 +46,17 @@ public abstract class GameContainer {
      *
      * @param g The {@link Graphics} context available for rendering
      */
-    public abstract void render(Graphics g);
+    protected abstract void render(Graphics g);
 
     public abstract void onPause();
 
     public abstract void onResume();
 
+    /**
+     * Render the game
+     */
     public void render() {
-        graphics.preRender(width, height);
+        graphics.preRender();
         render(graphics);
         graphics.postRender();
     }

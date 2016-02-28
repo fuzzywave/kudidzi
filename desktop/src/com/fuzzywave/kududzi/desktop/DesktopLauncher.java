@@ -1,9 +1,9 @@
 package com.fuzzywave.kududzi.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.utils.Logger;
+import com.fuzzywave.commons.GameApplication;
 import com.fuzzywave.commons.platform.LoggerImpl;
 import com.fuzzywave.commons.util.ScreenConfig;
 import com.fuzzywave.commons.util.SpritePacker;
@@ -22,8 +22,7 @@ public class DesktopLauncher {
                 config);
 
         LoggerImpl logger = new LoggerImpl("KududziDesktop", Logger.DEBUG);
-        KududziGame.setPlatformResolvers(logger);
-
-        new LwjglApplication(new KududziGame(), config);
+        KududziGame kududziGame = new KududziGame();
+        new LwjglApplication(new GameApplication(kududziGame, logger), config);
     }
 }

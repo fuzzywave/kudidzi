@@ -1,5 +1,7 @@
 package com.fuzzywave.commons;
 
+import com.fuzzywave.commons.game.GameContainer;
+
 /**
  * Common interface for listening to {@link GameContainer} resize.
  */

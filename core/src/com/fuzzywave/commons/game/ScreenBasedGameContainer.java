@@ -1,4 +1,4 @@
-package com.fuzzywave.commons;
+package com.fuzzywave.commons.game;
 
 
 import com.fuzzywave.commons.graphics.Graphics;

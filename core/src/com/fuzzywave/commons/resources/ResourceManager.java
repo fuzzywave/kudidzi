@@ -16,7 +16,8 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.JsonIterator;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.fuzzywave.commons.Game;
+import com.fuzzywave.commons.GameApplication;
+import com.fuzzywave.commons.game.GameContainer;
 
 public class ResourceManager implements Disposable, AssetErrorListener{
 
@@ -38,22 +39,22 @@ public class ResourceManager implements Disposable, AssetErrorListener{
     }
 
     public void loadGroup(String groupName) {
-        Game.logger.info("[ResourceManager] loading group, " + groupName);
+        GameApplication.logger.info("[ResourceManager] loading group, " + groupName);
 
         Array<Asset> assets = groups.get(groupName, null);
 
         if (assets != null) {
             for (Asset asset : assets) {
-                Game.logger.info("[ResourceManager] loading, " + asset.path);
+                GameApplication.logger.info("[ResourceManager] loading, " + asset.path);
                 manager.load(asset.path, asset.type, asset.parameters);
             }
         } else {
-            Game.logger.error("[ResourceManager] failed to load group, " + groupName);
+            GameApplication.logger.error("[ResourceManager] failed to load group, " + groupName);
         }
     }
 
     public void unloadGroup(String groupName) {
-        Game.logger.info("[ResourceManager] unloading group, " + groupName);
+        GameApplication.logger.info("[ResourceManager] unloading group, " + groupName);
 
         Array<Asset> assets = groups.get(groupName, null);
 
@@ -64,7 +65,7 @@ public class ResourceManager implements Disposable, AssetErrorListener{
                 }
             }
         } else {
-            Game.logger.error("[ResourceManager] failed to unload group, " + groupName);
+            GameApplication.logger.error("[ResourceManager] failed to unload group, " + groupName);
         }
     }
 
@@ -94,19 +95,19 @@ public class ResourceManager implements Disposable, AssetErrorListener{
 
     @Override
     public void dispose() {
-        Game.logger.info("[ResourceManager] disposing...");
+        GameApplication.logger.info("[ResourceManager] disposing...");
         manager.dispose();
     }
 
     @Override
     public void error(AssetDescriptor asset, Throwable throwable) {
-        Game.logger.error("[ResourceManager] Error on loading, " + asset.fileName + " message: " + throwable.getMessage());
+        GameApplication.logger.error("[ResourceManager] Error on loading, " + asset.fileName + " message: " + throwable.getMessage());
     }
 
     private void loadGroups(String assetFile) {
         groups = new ObjectMap<String, Array<Asset>>();
 
-        Game.logger.info("[ResourceManager] loading file, " + assetFile);
+        GameApplication.logger.info("[ResourceManager] loading file, " + assetFile);
 
         try {
             Json json = new Json();
@@ -119,11 +120,11 @@ public class ResourceManager implements Disposable, AssetErrorListener{
                 JsonValue groupValue = groupIt.next();
 
                 if (groups.containsKey(groupValue.name)) {
-                    Game.logger.info("[ResourceManager] Group, " + groupValue.name + " already exists, skipping");
+                    GameApplication.logger.info("[ResourceManager] Group, " + groupValue.name + " already exists, skipping");
                     continue;
                 }
 
-                Game.logger.info("[ResourceManager] registering group " + groupValue.name);
+                GameApplication.logger.info("[ResourceManager] registering group " + groupValue.name);
 
                 Array<Asset> assets = new Array<Asset>();
 
@@ -139,7 +140,7 @@ public class ResourceManager implements Disposable, AssetErrorListener{
                 groups.put(groupValue.name, assets);
             }
         } catch (Exception e) {
-            Game.logger.error("[ResourceManager] Error on loading file, " + assetFile + " " + e.getMessage());
+            GameApplication.logger.error("[ResourceManager] Error on loading file, " + assetFile + " " + e.getMessage());
         }
     }
 

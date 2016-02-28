@@ -1,7 +1,7 @@
 package com.fuzzywave.commons.screen.transition;
 
 
-import com.fuzzywave.commons.GameContainer;
+import com.fuzzywave.commons.game.GameContainer;
 import com.fuzzywave.commons.graphics.Graphics;
 import com.fuzzywave.commons.screen.Screen;
 

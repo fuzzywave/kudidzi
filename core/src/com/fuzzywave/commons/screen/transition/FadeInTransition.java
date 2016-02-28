@@ -2,7 +2,8 @@ package com.fuzzywave.commons.screen.transition;
 
 
 import com.badlogic.gdx.graphics.Color;
-import com.fuzzywave.commons.GameContainer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.fuzzywave.commons.game.GameContainer;
 import com.fuzzywave.commons.graphics.Graphics;
 import com.fuzzywave.commons.screen.Screen;
 
@@ -60,11 +61,10 @@ public class FadeInTransition implements Transition {
 
     @Override
     public void postRender(GameContainer gc, Graphics g) {
-        Color old = g.getColor();
-        g.setColor(color);
-
-        g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
-        g.setColor(old);
+        g.shapeRenderer.begin();
+        g.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        g.shapeRenderer.rect(0, 0, gc.getWidth(), gc.getHeight(), color, color, color, color);
+        g.shapeRenderer.end();
     }
 
     @Override
