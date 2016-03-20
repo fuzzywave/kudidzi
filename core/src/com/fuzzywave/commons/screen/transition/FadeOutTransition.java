@@ -60,7 +60,7 @@ public class FadeOutTransition implements Transition {
 
     @Override
     public void postRender(GameContainer gc, Graphics g) {
-        g.shapeRenderer.begin();
+        g.shapeRenderer.setAutoShapeType(true);
         g.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         g.shapeRenderer.rect(0, 0, gc.getWidth(), gc.getHeight(), color, color, color, color);
         g.shapeRenderer.end();

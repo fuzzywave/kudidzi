@@ -108,7 +108,7 @@ public class GameScreen implements Screen {
 
     @Override
     public int getId() {
-        return 0;
+        return Screens.GAME_SCREEN_ID;
     }
 
     @Override

@@ -59,7 +59,7 @@ public class RenderingSystem extends SortedIteratingSystem {
                     scale,
                     MathUtils.radiansToDegrees * angle);
         }
-        g.spriteBatch.begin();
+        g.spriteBatch.end();
 
         renderQueue.clear();
     }

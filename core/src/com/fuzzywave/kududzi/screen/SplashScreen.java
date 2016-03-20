@@ -19,6 +19,8 @@ import com.fuzzywave.commons.graphics.Graphics;
 import com.fuzzywave.commons.resources.ResourceManager;
 import com.fuzzywave.commons.screen.Screen;
 import com.fuzzywave.commons.screen.ScreenManager;
+import com.fuzzywave.commons.screen.transition.FadeInTransition;
+import com.fuzzywave.commons.screen.transition.FadeOutTransition;
 import com.fuzzywave.commons.screen.transition.Transition;
 
 public class SplashScreen implements Screen {
@@ -57,10 +59,10 @@ public class SplashScreen implements Screen {
 
     public SplashScreen(ResourceManager resourceManager) {
         this.resourceManager = resourceManager;
-
     }
 
     private void loadResourcesRequiredOnStartup() {
+        GameApplication.logger.info("Loading splash screen resources...");
         resourceManager.loadGroup("splash_screen");
         resourceManager.finishLoading();
 
@@ -87,6 +89,7 @@ public class SplashScreen implements Screen {
     }
 
     private void queueResourcesForLoading() {
+        GameApplication.logger.info("Queing other resources...");
         // TODO Load all assets
     }
 
@@ -110,8 +113,10 @@ public class SplashScreen implements Screen {
         interpolationAlpha = Math.min(totalTime / SPLASH_MIN_TIME, 1.0f);
 
         if ((interpolationAlpha >= 1.0f) && (loadingFinished)) {
-            // TODO switch screen.
-            totalTime = 0;
+            GameApplication.logger.info("Exiting splash screen...");
+            screenManager.enterGameScreen(Screens.GAME_SCREEN_ID,
+                    new FadeOutTransition(),
+                    new FadeInTransition());
         }
     }
 
