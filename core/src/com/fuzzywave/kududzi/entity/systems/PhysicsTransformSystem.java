@@ -12,14 +12,14 @@ import com.fuzzywave.kududzi.entity.components.TransformComponent;
  * Also, this system can be used to interpolate between physics states based on
  * the alpha value (how much time is left in the accumulator).
  */
-public class PhysicsTransformSystem extends IteratingSystem {
+public class PhysicsTransformSystem extends IteratingSystem{
 
     private float alpha;
 
-    public PhysicsTransformSystem(Family family, int priority) {
+    public PhysicsTransformSystem(int priority) {
         super(Family.all(PhysicsComponent.class,
                 TransformComponent.class).get(), priority);
-        alpha = 1.0f;
+        alpha = .0f;
     }
 
     @Override
@@ -27,16 +27,14 @@ public class PhysicsTransformSystem extends IteratingSystem {
         PhysicsComponent physics = ComponentRetriever.get(entity, PhysicsComponent.class);
         TransformComponent transform = ComponentRetriever.get(entity, TransformComponent.class);
 
-        // TODO override component
-
-        transform.position.x = physics.position.x * alpha + transform.position.x * (1.0f - alpha);
-        transform.position.y = physics.position.y * alpha + transform.position.y * (1.0f - alpha);
-        transform.angle = physics.angle * alpha + transform.angle * (1.0f - alpha);
+        transform.position.x = physics.position.x + ((physics.position.x - transform.position.x) * alpha);
+        transform.position.y = physics.position.y + ((physics.position.y - transform.position.y) * alpha);
+        transform.angle = physics.angle + ((physics.angle - transform.angle) * alpha);
     }
 
     public void interpolate(float alpha) {
         this.alpha = alpha;
         super.update(1.0f);
-        this.alpha = 1.0f;
+        this.alpha = .0f;
     }
 }

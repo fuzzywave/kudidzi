@@ -4,11 +4,11 @@ package com.fuzzywave.kududzi.entity.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.SortedIteratingSystem;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.fuzzywave.commons.graphics.Graphics;
 import com.fuzzywave.kududzi.entity.components.ComponentRetriever;
 import com.fuzzywave.kududzi.entity.components.TextureComponent;
 import com.fuzzywave.kududzi.entity.components.TransformComponent;
@@ -17,22 +17,22 @@ import java.util.Comparator;
 
 public class RenderingSystem extends SortedIteratingSystem {
 
-    private SpriteBatch batch;
+    private Graphics g;
     private Array<Entity> renderQueue;
 
-    public RenderingSystem(SpriteBatch batch, int priority) {
+    public RenderingSystem(Graphics g, int priority) {
         super(Family.all(TextureComponent.class, TransformComponent.class).get(),
                 new ZComparator(), priority);
 
         this.renderQueue = new Array<Entity>();
-        this.batch = batch;
+        this.g = g;
     }
 
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
 
-        batch.begin();
+        g.spriteBatch.begin();
         for (Entity entity : renderQueue) {
             // TODO render entity.
             TransformComponent transformComponent = ComponentRetriever.get(entity, TransformComponent.class);
@@ -48,7 +48,7 @@ public class RenderingSystem extends SortedIteratingSystem {
             float originX = width * 0.5f;
             float originY = height * 0.5f;
 
-            batch.draw(textureComponent.region,
+            g.spriteBatch.draw(textureComponent.region,
                     position.x - originX,
                     position.y - originY,
                     originX,
@@ -59,7 +59,7 @@ public class RenderingSystem extends SortedIteratingSystem {
                     scale,
                     MathUtils.radiansToDegrees * angle);
         }
-        batch.end();
+        g.spriteBatch.begin();
 
         renderQueue.clear();
     }

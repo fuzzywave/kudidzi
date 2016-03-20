@@ -12,7 +12,6 @@ import java.util.List;
 
 public abstract class GameContainer {
 
-
     protected int width, height;
     protected Graphics graphics;
     protected SpriteBatch spriteBatch;
@@ -116,5 +115,9 @@ public abstract class GameContainer {
 
     public int getHeight() {
         return height;
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
     }
 }
